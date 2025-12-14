@@ -363,7 +363,7 @@ int main() {
     RectangleShape textbox(Vector2f(158, 86));
     textbox.setTexture(&text);
 
-    RectangleShape smiley(Vector2f(25, 25));
+    RectangleShape smiley(Vector2f(154, 150));
     smiley.setTexture(&smile);
     
     int** field = new int*[n];
@@ -506,15 +506,19 @@ int main() {
         
         // Смайлик (исправлены состояния)
         if(flag == 0) {
-            smiley.setTextureRect(IntRect(0, 25, 25, 25)); // обычный
+            smiley.setTextureRect(IntRect(0, 0, 154, 150)); // обычный (первый)
         } else if(flag == -1) {
-            smiley.setTextureRect(IntRect(0, 50, 25, 25)); // проиграл
+            smiley.setTextureRect(IntRect(308, 0, 154, 150)); // проиграл (третий)
         } else if(flag == -2) {
-            smiley.setTextureRect(IntRect(0, 0, 25, 25)); // выиграл
+            smiley.setTextureRect(IntRect(154, 0, 154, 150)); // выиграл (второй)
         }
-        smiley.setPosition((window_width - 25) / 2, 25); // точное центрирование
+        // Масштабируем смайлик до нужного размера (25x25)
+        smiley.setScale(25.0f/154.0f, 25.0f/150.0f); // Уменьшаем до размера клетки
+
+        // Позиционируем по центру
+        int smileyX = (25 * (m + 2) - 25) / 2; // Центр минус половина ширины
+        smiley.setPosition(smileyX, 25);
         window.draw(smiley);
-        
         // Игровое поле
         for(int j = 0; j < n; j++) {
             for(int i = 0; i < m; i++) {
