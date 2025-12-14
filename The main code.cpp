@@ -80,11 +80,8 @@ int main()
 	vid.height = CELL_SIZE *(n+4);
     RenderWindow window(vid, "Minesweeper 9x9", Style::Default);
 
-    Image buttonsimage;
-    buttonsimage.loadFromFile("buttons.png");
 	Texture but;
-	but.loadFromFile(buttonsimage);
-    
+	but.loadFromFile("buttons.png");
 	Texture num;
 	num.loadFromFile("numbers.png");
 	Texture text;
@@ -157,28 +154,28 @@ int main()
                     }
                 }
                 // Клик на смайлик (посередине сверху) для рестарта
-                int smileyX = (CELL_SIZE * (m + 2) / 2) - 8;
-                int smileyY = 8;
-                if (x >= smileyX && x < smileyX + 16 &&
-                    y >= smileyY && y < smileyY + 16) {
-                    // Рестарт игры
-                    for(int j = 0; j < n; j++){
-                        for(int i = 0; i < m; i++){
-                            field[j][i] = 0;
-                            opened[j][i] = 0;
-                        }
-                    }
-                    vid.width = 16*(m+2);
-                    vid.height = 16*(n+4);
-                    window.create(vid, "Minesweeper 9x9", Style::Default);
-                    while(sf::Mouse::isButtonPressed(sf::Mouse::Left)) flag = 0;
-                    start = true;
-                    flag = 0;
-                    flags_left = mines;
-                    to_win = n * m - mines;
-                    star = 0;
-                    tim = 0;
-                }
+                // int smileyX = (CELL_SIZE * (m + 2) / 2) - 8;
+                // int smileyY = 8;
+                // if (x >= smileyX && x < smileyX + 16 &&
+                //     y >= smileyY && y < smileyY + 16) {
+                //     // Рестарт игры
+                //     for(int j = 0; j < n; j++){
+                //         for(int i = 0; i < m; i++){
+                //             field[j][i] = 0;
+                //             opened[j][i] = 0;
+                //         }
+                //     }
+                //     vid.width = 16*(m+2);
+                //     vid.height = 16*(n+4);
+                //     window.create(vid, "Minesweeper 9x9", Style::Default);
+                //     while(sf::Mouse::isButtonPressed(sf::Mouse::Left)) flag = 0;
+                //     start = true;
+                //     flag = 0;
+                //     flags_left = mines;
+                //     to_win = n * m - mines;
+                //     star = 0;
+                //     tim = 0;
+                // }
             }
                 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) //Это механика установки флажков (правый клик) для отметки предполагаемых мин.
