@@ -349,7 +349,7 @@ int main() {
     Texture text;
     text.loadFromFile("Text (2).png");
     Texture smile;
-    smile.loadFromFile("emodjy.png");
+    smile.loadFromFile("emodjy.jpg");
     srand(time(NULL));
     
     RectangleShape cell(Vector2f(CELL_SIZE, CELL_SIZE));
