@@ -81,11 +81,11 @@ int main()
     RenderWindow window(vid, "Minesweeper 9x9", Style::Default);
 
 	Texture but;
-	but.loadFromFile("buttens.png");
+	but.loadFromFile("buttens (2).png");
 	Texture num;
-	num.loadFromFile("numbers.png");
+	num.loadFromFile("numbers (2).png");
 	Texture text;
-	text.loadFromFile("Text(2).png");
+	text.loadFromFile("Text (2).png");
     Texture smile;
 	smile.loadFromFile("smail.png");
 
@@ -95,11 +95,11 @@ int main()
 	cell.setTexture(&but);
 	cell.setTextureRect(IntRect(0, 0, 25, 25));
 
-	RectangleShape number(Vector2f(14, 23));
+	RectangleShape number(Vector2f(20, 35.5));
 	number.setTexture(&num);
-	number.setTextureRect(IntRect(0, 0, 14, 23));
+	number.setTextureRect(IntRect(0, 0, 20, 35.4));
 
-	RectangleShape textbox(Vector2f(115, 28));
+	RectangleShape textbox(Vector2f(158, 86));
 	textbox.setTexture(&text);
 
     
@@ -132,17 +132,17 @@ int main()
             int x = pos.x; //столбец
             int y = pos.y; //строка
             
-                if (y < 25*(n+3) && x < 25*(m+1) && y > 48 && x > 25)
+                if (y < 25*(n+3) && x < 25*(m+1) && y > 75 && x > 25)
                 {
-                    if (opened[(y-48)/25][(x-25)/25] == 0){
+                    if (opened[(y 75)/25][(x-25)/25] == 0){
                         if(start){  // Если это ПЕРВЫЙ клик в игре
-                            init(field, (y-48)/25, (x-25)/25); // генерация поля
+                            init(field, (y 75)/25, (x-25)/25); // генерация поля
                         }
-                        openfild(field, opened, (y-48)/25, (x-25)/25); // Открываем клетку
+                        openfild(field, opened, (y 75)/25, (x-25)/25); // Открываем клетку
                         start = false; //больше не первый клик
                     }
-                    if (opened[(x-48)/25][(y-25)/25] == 1 && field[(x-48)/25][(y-25)/25] == -1){ //Обработка клика на открытой мине
-                        field[(x-48)/25][(y-25)/25] = -2; // Взорвавшаяся мина
+                    if (opened[(x 75)/25][(y-25)/25] == 1 && field[(x 75)/25][(y-25)/25] == -1){ //Обработка клика на открытой мине
+                        field[(x 75)/25][(y-25)/25] = -2; // Взорвавшаяся мина
                         flag = -1; // проигрыш
                         for(int i = 0; i < n; i++){ //открываем все поле для просмотра
                             for(int j = 0; j < m; j++){
@@ -183,13 +183,13 @@ int main()
                 Vector2i pos = sf::Mouse::getPosition(window);
                 int x = pos.x;
                 int y = pos.y;
-                if (y < 25*(n+3) && x < 25*(m+1) && y > 48 && x > 25){
-                    if (opened[(y-48)/25][(x-25) / 25] == 0){
-                        opened[(y-48)/25][(x-25) / 25] = -1;
+                if (y < 25*(n+3) && x < 25*(m+1) && y > 75 && x > 25){
+                    if (opened[(y 75)/25][(x-25) / 25] == 0){
+                        opened[(y 75)/25][(x-25) / 25] = -1;
                         flags--;
                     }
-                    else if (opened[(y-48)/25][(x-25) / 25] == -1){
-                        opened[(y-48)/25][(x-25) / 25] = 0;
+                    else if (opened[(y 75)/25][(x-25) / 25] == -1){
+                        opened[(y 75)/25][(x-25) / 25] = 0;
                         flags++;
                     }
                 }
@@ -200,18 +200,18 @@ int main()
     if(to_win == 0 && flag == 0) flag = -2; //-2 - это выигрышь
     if(flag == -2){
     // (победа)
-    textbox.setPosition(115, 28);
+    textbox.setPosition(158, 86);
     textbox.setTextureRect(IntRect(0, 0, 158, 43));  // верхняя строка
     window.draw(textbox);
     }
 
     // (поражение):
     if(flag == -1){
-        textbox.setPosition(115, 28);
+        textbox.setPosition(158, 86);
         textbox.setTextureRect(IntRect(0, 43, 158, 43));  // нижняя строка
         window.draw(textbox);
     }
-    number.setPosition(14, 23);
+    number.setPosition(30, 25);
     number.setTextureRect(IntRect(0, (11-flags/100)*35.5, 20, 35.5));
     window.draw(number);
     number.move(20, 0);
