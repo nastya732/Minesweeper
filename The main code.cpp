@@ -506,11 +506,11 @@ int main() {
         
         // Смайлик (исправлены состояния)
         if(flag == 0) {
-            smiley.setTextureRect(IntRect(0, 0, 154, 150)); // обычный (первый)
+            smiley.setTextureRect(IntRect(154, 0, 154, 150)); // обычный (первый)
         } else if(flag == -1) {
             smiley.setTextureRect(IntRect(308, 0, 154, 150)); // проиграл (третий)
         } else if(flag == -2) {
-            smiley.setTextureRect(IntRect(154, 0, 154, 150)); // выиграл (второй)
+            smiley.setTextureRect(IntRect(0, 0, 154, 150)); // выиграл (второй)
         }
         // Масштабируем смайлик до нужного размера (25x25)
         smiley.setScale(25.0f/154.0f, 25.0f/150.0f); // Уменьшаем до размера клетки
