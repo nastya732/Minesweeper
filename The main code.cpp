@@ -268,8 +268,6 @@
 //     return 0;  // Выход из программы
 //     }
     
-        
-        
 #include <SFML/Graphics.hpp>
 #include <ctime>
 
@@ -350,7 +348,8 @@ int main() {
     num.loadFromFile("numbers (2).png");
     Texture text;
     text.loadFromFile("Text (2).png");
-    
+    Texture smile;
+    smile.loadFromFile("emodjy.png");
     srand(time(NULL));
     
     RectangleShape cell(Vector2f(CELL_SIZE, CELL_SIZE));
@@ -363,6 +362,9 @@ int main() {
     
     RectangleShape textbox(Vector2f(158, 86));
     textbox.setTexture(&text);
+
+    RectangleShape smiley(Vector2f(25, 25));
+    smiley.setTexture(&smile);
     
     int** field = new int*[n];
     for(int i = 0; i < n; i++) {
@@ -393,6 +395,29 @@ int main() {
                 int y = pos.y;
                 
                 if (event.mouseButton.button == Mouse::Left) {
+                    // Проверка клика по смайлику
+                    int smileyX = (25 * (m + 2)) / 2 - 12;
+                    int smileyY = 25;
+                    
+                    if (x >= smileyX && x <= smileyX + 25 && 
+                        y >= smileyY && y <= smileyY + 25) {
+                        // Перезапуск игры
+                        for(int i = 0; i < n; i++) {
+                            for(int j = 0; j < m; j++) {
+                                field[i][j] = 0;
+                                opened[i][j] = 0;
+                            }
+                        }
+                        start = true;
+                        flag = 0;
+                        flags = mines;
+                        to_win = m * n - mines;
+                        star = 0;
+                        tim = 0;
+                        continue;
+                    }
+                    
+                    // Обработка клика по игровому полю
                     if (y < 25*(n+3) && x < 25*(m+1) && y > 75 && x > 25) {
                         int cellY = (y - 75) / 25;
                         int cellX = (x - 25) / 25;
@@ -456,6 +481,7 @@ int main() {
             window.draw(textbox);
         }
         
+        // Счетчик флагов
         number.setPosition(30, 25);
         number.setTextureRect(IntRect(0, (11-flags/100)*35.5, 20, 35.5));
         window.draw(number);
@@ -466,8 +492,8 @@ int main() {
         number.setTextureRect(IntRect(0, (11-(flags%10))*35.5, 20, 35.5));
         window.draw(number);
         
+        // Таймер
         if (star > 0 && flag == 0) tim = (time(0) - star);
-        
         number.setPosition(25*(m+2) - 50, 25);
         number.setTextureRect(IntRect(0, (11-(tim%10))*35.5, 20, 35.5));
         window.draw(number);
@@ -478,6 +504,18 @@ int main() {
         number.setTextureRect(IntRect(0, (11-(tim/60))*35.5, 20, 35.5));
         window.draw(number);
         
+        // Смайлик (исправлены состояния)
+        if(flag == 0) {
+            smiley.setTextureRect(IntRect(0, 25, 25, 25)); // обычный
+        } else if(flag == -1) {
+            smiley.setTextureRect(IntRect(0, 50, 25, 25)); // проиграл
+        } else if(flag == -2) {
+            smiley.setTextureRect(IntRect(0, 0, 25, 25)); // выиграл
+        }
+        smiley.setPosition((window_width - 25) / 2, 25); // точное центрирование
+        window.draw(smiley);
+        
+        // Игровое поле
         for(int j = 0; j < n; j++) {
             for(int i = 0; i < m; i++) {
                 cell.setPosition(25+25*i, 75 + 25*j);
