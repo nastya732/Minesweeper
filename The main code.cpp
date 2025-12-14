@@ -236,22 +236,22 @@ int main()
     for(int j = 0; j < n; j++){
     for(int i = 0; i < m; i++){
         if(opened[j][i] == 0){
-            field1.setPosition(16+16*i, 75 + 16*j);
-            field1.setTextureRect(IntRect(0, 0, 16, 16));
-            window.draw(field1);
+            cell.setPosition(16+16*i, 75 + 16*j);
+            cell.setTextureRect(IntRect(0, 0, 16, 16));
+            window.draw(cell);
         }
         if(opened[j][i] == -1){
-            field1.setPosition(16+16*i, 75 + 16*j);
-            field1.setTextureRect(IntRect(0, 16, 16, 16));
-            window.draw(field1);
+            cell.setPosition(16+16*i, 75 + 16*j);
+            cell.setTextureRect(IntRect(0, 16, 16, 16));
+            window.draw(cell);
         }
         if(opened[j][i] == 1){
-            field1.setPosition(16+16*i, 75 + 16*j);
-            if(field[j][i] == -1) field1.setTextureRect(IntRect(0, 125, 16, 16));
-            else if(field[j][i] == -2) field1.setTextureRect(IntRect(0, 75, 16, 16));
-            else if(field[j][i] == -3) field1.setTextureRect(IntRect(0, 100, 16, 16));
-            else field1.setTextureRect(IntRect(0, 16*(15-field[j][i]), 16, 16));
-            window.draw(field1);
+            cell.setPosition(16+16*i, 75 + 16*j);
+            if(field[j][i] == -1) cell.setTextureRect(IntRect(0, 125, 16, 16));
+            else if(field[j][i] == -2) cell.setTextureRect(IntRect(0, 75, 16, 16));
+            else if(field[j][i] == -3) cell.setTextureRect(IntRect(0, 100, 16, 16));
+            else cell.setTextureRect(IntRect(0, 16*(15-field[j][i]), 16, 16));
+            window.draw(cell);
         }
     }
     }
