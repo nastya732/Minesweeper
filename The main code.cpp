@@ -2,7 +2,7 @@
 #include <ctime>
 
 using namespace sf; //включаем пространство имен sf, чтобы постоянно не писать sf::
-const int CELL_SIZE = 16;
+const int CELL_SIZE = 25;
 const int n = 9;           // 9 строк
 const int m = 9;           // 9 столбцов
 const int mines = 10;
@@ -81,19 +81,19 @@ int main()
     RenderWindow window(vid, "Minesweeper 9x9", Style::Default);
 
 	Texture but;
-	but.loadFromFile("buttons.png");
+	but.loadFromFile("buttens.png");
 	Texture num;
 	num.loadFromFile("numbers.png");
 	Texture text;
 	text.loadFromFile("Text(2).png");
     Texture smile;
-	smile.loadFromFile("smile.png");
+	smile.loadFromFile("smail.png");
 
     srand(time(NULL));
 	
 	RectangleShape cell(Vector2f(CELL_SIZE , CELL_SIZE ));
 	cell.setTexture(&but);
-	cell.setTextureRect(IntRect(0, 0, 16, 16));
+	cell.setTextureRect(IntRect(0, 0, 25, 25));
 
 	RectangleShape number(Vector2f(14, 23));
 	number.setTexture(&num);
@@ -132,17 +132,17 @@ int main()
             int x = pos.x; //столбец
             int y = pos.y; //строка
             
-                if (y < 16*(n+3) && x < 16*(m+1) && y > 48 && x > 16)
+                if (y < 25*(n+3) && x < 25*(m+1) && y > 48 && x > 25)
                 {
-                    if (opened[(y-48)/16][(x-16)/16] == 0){
+                    if (opened[(y-48)/25][(x-25)/25] == 0){
                         if(start){  // Если это ПЕРВЫЙ клик в игре
-                            init(field, (y-48)/16, (x-16)/16); // генерация поля
+                            init(field, (y-48)/25, (x-25)/25); // генерация поля
                         }
-                        openfild(field, opened, (y-48)/16, (x-16)/16); // Открываем клетку
+                        openfild(field, opened, (y-48)/25, (x-25)/25); // Открываем клетку
                         start = false; //больше не первый клик
                     }
-                    if (opened[(x-48)/16][(y-16)/16] == 1 && field[(x-48)/16][(y-16)/16] == -1){ //Обработка клика на открытой мине
-                        field[(x-48)/16][(y-16)/16] = -2; // Взорвавшаяся мина
+                    if (opened[(x-48)/25][(y-25)/25] == 1 && field[(x-48)/25][(y-25)/25] == -1){ //Обработка клика на открытой мине
+                        field[(x-48)/25][(y-25)/25] = -2; // Взорвавшаяся мина
                         flag = -1; // проигрыш
                         for(int i = 0; i < n; i++){ //открываем все поле для просмотра
                             for(int j = 0; j < m; j++){
@@ -156,8 +156,8 @@ int main()
                 // Клик на смайлик (посередине сверху) для рестарта
                 // int smileyX = (CELL_SIZE * (m + 2) / 2) - 8;
                 // int smileyY = 8;
-                // if (x >= smileyX && x < smileyX + 16 &&
-                //     y >= smileyY && y < smileyY + 16) {
+                // if (x >= smileyX && x < smileyX + 25 &&
+                //     y >= smileyY && y < smileyY + 25) {
                 //     // Рестарт игры
                 //     for(int j = 0; j < n; j++){
                 //         for(int i = 0; i < m; i++){
@@ -165,8 +165,8 @@ int main()
                 //             opened[j][i] = 0;
                 //         }
                 //     }
-                //     vid.width = 16*(m+2);
-                //     vid.height = 16*(n+4);
+                //     vid.width = 25*(m+2);
+                //     vid.height = 25*(n+4);
                 //     window.create(vid, "Minesweeper 9x9", Style::Default);
                 //     while(sf::Mouse::isButtonPressed(sf::Mouse::Left)) flag = 0;
                 //     start = true;
@@ -183,13 +183,13 @@ int main()
                 Vector2i pos = sf::Mouse::getPosition(window);
                 int x = pos.x;
                 int y = pos.y;
-                if (y < 16*(n+3) && x < 16*(m+1) && y > 48 && x > 16){
-                    if (opened[(y-48)/16][(x-16) / 16] == 0){
-                        opened[(y-48)/16][(x-16) / 16] = -1;
+                if (y < 25*(n+3) && x < 25*(m+1) && y > 48 && x > 25){
+                    if (opened[(y-48)/25][(x-25) / 25] == 0){
+                        opened[(y-48)/25][(x-25) / 25] = -1;
                         flags--;
                     }
-                    else if (opened[(y-48)/16][(x-16) / 16] == -1){
-                        opened[(y-48)/16][(x-16) / 16] = 0;
+                    else if (opened[(y-48)/25][(x-25) / 25] == -1){
+                        opened[(y-48)/25][(x-25) / 25] = 0;
                         flags++;
                     }
                 }
@@ -221,7 +221,7 @@ int main()
     number.setTextureRect(IntRect(0, (11-(flags%10))*35.5, 20, 35.5));
     window.draw(number);
     if (star > 0 && flag == 0) tim = (time(0) - star);
-    number.setPosition(16*(m+2) - 50, 16);
+    number.setPosition(25*(m+2) - 50, 25);
     number.setTextureRect(IntRect(0, (11-(tim%10))*35.5, 20, 35.5));
     window.draw(number);
     number.move(-20, 0);
@@ -233,21 +233,21 @@ int main()
     for(int j = 0; j < n; j++){
     for(int i = 0; i < m; i++){
         if(opened[j][i] == 0){
-            cell.setPosition(16+16*i, 75 + 16*j);
-            cell.setTextureRect(IntRect(0, 0, 16, 16));
+            cell.setPosition(25+25*i, 75 + 25*j);
+            cell.setTextureRect(IntRect(0, 0, 25, 25));
             window.draw(cell);
         }
         if(opened[j][i] == -1){
-            cell.setPosition(16+16*i, 75 + 16*j);
-            cell.setTextureRect(IntRect(0, 16, 16, 16));
+            cell.setPosition(25+25*i, 75 + 25*j);
+            cell.setTextureRect(IntRect(0, 25, 25, 25));
             window.draw(cell);
         }
         if(opened[j][i] == 1){
-            cell.setPosition(16+16*i, 75 + 16*j);
-            if(field[j][i] == -1) cell.setTextureRect(IntRect(0, 125, 16, 16));
-            else if(field[j][i] == -2) cell.setTextureRect(IntRect(0, 75, 16, 16));
-            else if(field[j][i] == -3) cell.setTextureRect(IntRect(0, 100, 16, 16));
-            else cell.setTextureRect(IntRect(0, 16*(15-field[j][i]), 16, 16));
+            cell.setPosition(25+25*i, 75 + 25*j);
+            if(field[j][i] == -1) cell.setTextureRect(IntRect(0, 125, 25, 25));
+            else if(field[j][i] == -2) cell.setTextureRect(IntRect(0, 75, 25, 25));
+            else if(field[j][i] == -3) cell.setTextureRect(IntRect(0, 100, 25, 25));
+            else cell.setTextureRect(IntRect(0, 25*(15-field[j][i]), 25, 25));
             window.draw(cell);
         }
     }
