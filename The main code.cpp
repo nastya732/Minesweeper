@@ -407,14 +407,13 @@ int main() {
                 int x = pos.x;
                 int y = pos.y;
                 
-                // Проверяем клик по первой строке меню (9x9 - это ТРЕТЬЯ строка в текстуре)
-               
+                // Проверяем клик по первой строке меню 
                 if (x >= 7 && x <= 393 && y >= 50 && y <= 122) {
                     n = 9; m = 9; mines = 10;
                     level = true;
                 }
                 
-                // Проверяем клик по второй строке меню (14x14 - это ЧЕТВЕРТАЯ строка в текстуре)
+                // Проверяем клик по второй строке меню 
                 if (x >= 7 && x <= 393 && y >= 122 && y <= 194) {
                     n = 14; m = 14; mines = 35;
                     level = true;
@@ -438,13 +437,13 @@ int main() {
     // Обновляем переменные после выбора уровня
     to_win = m * n - mines;
     flags = mines;
-        // ТЕПЕРЬ создаем игровое окно с ВЫБРАННЫМИ размерами
+        // теперь создаем игровое окно с выб. размерами
     VideoMode vid;
     vid.width = CELL_SIZE * (m + 2);
     vid.height = CELL_SIZE * (n + 4);
     RenderWindow gameWindow(vid, "Minesweeper", Style::Default);
     
-    // Создаем игровые объекты ПОСЛЕ выбора уровня
+    // Создаем игровые объекты после выбора уровня
     RectangleShape cell(Vector2f(CELL_SIZE, CELL_SIZE));
     cell.setTexture(&but);
     cell.setTextureRect(IntRect(0, 0, 25, 25));
@@ -459,7 +458,7 @@ int main() {
     RectangleShape smiley(Vector2f(154, 150));
     smiley.setTexture(&smile);
     
-    // Создаем игровые массивы с ВЫБРАННЫМИ размерами
+    // Создаем игровые массивы с выб. размерами
     int** field = new int*[n];
     for(int i = 0; i < n; i++) {
         field[i] = new int[m];
@@ -566,13 +565,13 @@ int main() {
         int text_width = TEXT_WIDTH;
         int center_x = (window_width - text_width) / 2;
         
-        if(flag == -2) { // Победа - ПЕРВАЯ строка в текстуре (y = 0)
+        if(flag == -2) { // Победа 
             result.setPosition(center_x, 25);
             result.setTextureRect(IntRect(0, 0, TEXT_WIDTH, TEXT_HEIGHT_PER_LINE)); // "Выигрыш"
             gameWindow.draw(result);
         }
         
-        if(flag == -1) { // Поражение - ВТОРАЯ строка в текстуре (y = 72)
+        if(flag == -1) { // Поражение 
             result.setPosition(center_x, 25);
             result.setTextureRect(IntRect(0, 72, TEXT_WIDTH, TEXT_HEIGHT_PER_LINE)); // "Проигрыш"
             gameWindow.draw(result);
