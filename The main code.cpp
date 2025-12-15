@@ -376,12 +376,6 @@ int main() {
     RenderWindow window(VideoMode(400, 250), "Выбор уровня сложности", Style::Default);
     Texture text;
     text.loadFromFile("Text (3).png");
-    // Создаем игровое окно с выбранными размерами
-    VideoMode vid;
-    vid.width = CELL_SIZE * (m + 2);
-    vid.height = CELL_SIZE * (n + 4);
-    RenderWindow gameWindow(vid, "Minesweeper", Style::Default);
-    
     Texture but;
     but.loadFromFile("buttens (2).png");
     Texture num;
@@ -390,23 +384,6 @@ int main() {
     smile.loadFromFile("emodjy.jpg");
     srand(time(NULL));
     
-    // Создаем игровые объекты
-    RectangleShape cell(Vector2f(CELL_SIZE, CELL_SIZE));
-    cell.setTexture(&but);
-    cell.setTextureRect(IntRect(0, 0, 25, 25));
-    
-    RectangleShape number(Vector2f(20, 35.5));
-    number.setTexture(&num);
-    number.setTextureRect(IntRect(0, 0, 20, 35.4));
-    
-    RectangleShape result(Vector2f(TEXT_WIDTH, TEXT_HEIGHT_PER_LINE));
-    result.setTexture(&text);
-    
-    RectangleShape smiley(Vector2f(154, 150));
-    smiley.setTexture(&smile);
- 
-    
-
     RectangleShape menu_1(Vector2f(TEXT_WIDTH, TEXT_HEIGHT_PER_LINE));
     menu_1.setTexture(&text);
     
@@ -431,14 +408,13 @@ int main() {
                 int y = pos.y;
                 
                 // Проверяем клик по первой строке меню (9x9 - это ТРЕТЬЯ строка в текстуре)
-                // Координаты кнопки на экране: (7, 50) до (393, 122)
+               
                 if (x >= 7 && x <= 393 && y >= 50 && y <= 122) {
                     n = 9; m = 9; mines = 10;
                     level = true;
                 }
                 
                 // Проверяем клик по второй строке меню (14x14 - это ЧЕТВЕРТАЯ строка в текстуре)
-                // Координаты кнопки на экране: (7, 122) до (393, 194)
                 if (x >= 7 && x <= 393 && y >= 122 && y <= 194) {
                     n = 14; m = 14; mines = 35;
                     level = true;
@@ -462,6 +438,26 @@ int main() {
     // Обновляем переменные после выбора уровня
     to_win = m * n - mines;
     flags = mines;
+        // ТЕПЕРЬ создаем игровое окно с ВЫБРАННЫМИ размерами
+    VideoMode vid;
+    vid.width = CELL_SIZE * (m + 2);
+    vid.height = CELL_SIZE * (n + 4);
+    RenderWindow gameWindow(vid, "Minesweeper", Style::Default);
+    
+    // Создаем игровые объекты ПОСЛЕ выбора уровня
+    RectangleShape cell(Vector2f(CELL_SIZE, CELL_SIZE));
+    cell.setTexture(&but);
+    cell.setTextureRect(IntRect(0, 0, 25, 25));
+    
+    RectangleShape number(Vector2f(20, 35.5));
+    number.setTexture(&num);
+    number.setTextureRect(IntRect(0, 0, 20, 35.4));
+    
+    RectangleShape result(Vector2f(TEXT_WIDTH, TEXT_HEIGHT_PER_LINE));
+    result.setTexture(&text);
+    
+    RectangleShape smiley(Vector2f(154, 150));
+    smiley.setTexture(&smile);
     
     // Создаем игровые массивы с ВЫБРАННЫМИ размерами
     int** field = new int*[n];
